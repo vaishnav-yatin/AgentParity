@@ -1,0 +1,39 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "${{ matrix.python }}" }
+      - run: pip install -e ".[a2a,dev]"
+      - run: pytest -q tests/test_runtime.py tests/test_conformance_suite.py tests/test_a2a_bridge.py
+
+  # One job per framework: their dependency pins conflict, so each gets its
+  # own environment, exactly as users install them.
+  adapter:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { extra: langgraph, test: test_langgraph }
+          - { extra: adk, test: test_adk }
+          - { extra: openai-agents, test: test_openai_agents }
+          - { extra: claude, test: test_claude_agent_sdk }
+          - { extra: crewai, test: test_crewai }
+          - { extra: agent-framework, test: test_agent_framework }
+    env:
+      CREWAI_TELEMETRY_OPT_OUT: "true"
+      OTEL_SDK_DISABLED: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install --pre -e ".[a2a,dev,${{ matrix.extra }}]"
+      - run: pytest -q -s tests/${{ matrix.test }}.py
