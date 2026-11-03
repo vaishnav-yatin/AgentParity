@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentparity"
-version = "0.1.0"
+version = "0.1.1"
 description = "Connect agents across frameworks over A2A, and prove the connection is faithful."
 readme = "README.md"
 license = "Apache-2.0"
@@ -34,7 +34,9 @@ dev = ["pytest>=8", "pytest-asyncio>=0.23", "uvicorn>=0.30"]
 agentparity = "agentparity.cli:main"
 
 [project.urls]
-Repository = "https://github.com/yatindrav/agentparity"
+Repository = "https://github.com/vaishnav-yatin/AgentParity"
+Issues = "https://github.com/vaishnav-yatin/AgentParity/issues"
+Changelog = "https://github.com/vaishnav-yatin/AgentParity/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agentparity"]

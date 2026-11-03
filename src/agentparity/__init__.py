@@ -1,6 +1,6 @@
 """agentparity: connect agents across frameworks, and prove the connection is faithful."""
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 from .core.adapter import Adapter, RunContext
 from .core.governance import (

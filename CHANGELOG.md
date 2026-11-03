@@ -2,6 +2,11 @@
 
 Versioning is `<major>.<minor>.<patch>`. Every code change bumps patch, and a feature or major fix bumps minor. Existing tags are never moved.
 
+## 0.1.1 — 2026-11-03
+
+- Project URL now points to the published repository, github.com/vaishnav-yatin/AgentParity.
+- Added `Issues` and `Changelog` project links.
+
 ## 0.1.0 — 2026-11-03
 
 First release.
